@@ -54,7 +54,7 @@ public class ImageProcessor extends JFrame {
 
 
         JButton saveButton = new JButton("Save Image");
-        saveButton.addActionListener(e -> applyManipulationToSelectedArea());
+        saveButton.addActionListener(e -> saveImage());
         buttonPanel.add(saveButton);
 
 
