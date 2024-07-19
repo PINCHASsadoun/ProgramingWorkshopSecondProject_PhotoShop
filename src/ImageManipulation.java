@@ -26,9 +26,9 @@ public class ImageManipulation {
         for (int y = 0; y < img.getHeight(); y++) {
             for (int x = 0; x < img.getWidth(); x++) {
                 int rgb = img.getRGB(x, y);
-                int r = ((rgb >> 16) & 0xFF) & 0xE0;
-                int g = ((rgb >> 8) & 0xFF) & 0xE0;
-                int b = (rgb & 0xFF) & 0xE0;
+                int r = ((rgb >> 16) & 255) & 224;
+                int g = ((rgb >> 8) & 255) & 224;
+                int b = (rgb & 255) & 224;
                 int newRgb = (r << 16) | (g << 8) | b;
                 result.setRGB(x, y, newRgb);
             }
@@ -41,9 +41,9 @@ public class ImageManipulation {
         for (int y = 0; y < img.getHeight(); y++) {
             for (int x = 0; x < img.getWidth(); x++) {
                 int rgb = img.getRGB(x, y);
-                int r = Math.min(255, ((rgb >> 16) & 0xFF) + 40);
-                int g = Math.min(255, ((rgb >> 8) & 0xFF) + 40);
-                int b = (rgb & 0xFF);
+                int r = Math.min(255, ((rgb >> 16) & 255) + 40);
+                int g = Math.min(255, ((rgb >> 8) & 255) + 40);
+                int b = (rgb & 255);
                 int newRgb = (r << 16) | (g << 8) | b;
                 result.setRGB(x, y, newRgb);
             }
@@ -56,9 +56,9 @@ public class ImageManipulation {
         for (int y = 0; y < img.getHeight(); y++) {
             for (int x = 0; x < img.getWidth(); x++) {
                 int rgb = img.getRGB(x, y);
-                int r = (rgb >> 16) & 0xFF;
-                int g = (rgb >> 8) & 0xFF;
-                int b = rgb & 0xFF;
+                int r = (rgb >> 16) & 255;
+                int g = (rgb >> 8) & 255;
+                int b = rgb & 255;
                 int newRgb = (b << 16) | (r << 8) | g;
                 result.setRGB(x, y, newRgb);
             }
@@ -108,24 +108,24 @@ public class ImageManipulation {
         for (int y = 1; y < img.getHeight() - 1; y++) {
             for (int x = 1; x < img.getWidth() - 1; x++) {
                 int pixelX = (
-                        (sobelX[0][0] * (img.getRGB(x - 1, y - 1) & 0xFF)) +
-                                (sobelX[0][1] * (img.getRGB(x, y - 1) & 0xFF)) +
-                                (sobelX[0][2] * (img.getRGB(x + 1, y - 1) & 0xFF)) +
-                                (sobelX[1][0] * (img.getRGB(x - 1, y) & 0xFF)) +
-                                (sobelX[1][2] * (img.getRGB(x + 1, y) & 0xFF)) +
-                                (sobelX[2][0] * (img.getRGB(x - 1, y + 1) & 0xFF)) +
-                                (sobelX[2][1] * (img.getRGB(x, y + 1) & 0xFF)) +
-                                (sobelX[2][2] * (img.getRGB(x + 1, y + 1) & 0xFF))
+                        (sobelX[0][0] * (img.getRGB(x - 1, y - 1) & 255)) +
+                                (sobelX[0][1] * (img.getRGB(x, y - 1) & 255)) +
+                                (sobelX[0][2] * (img.getRGB(x + 1, y - 1) & 255)) +
+                                (sobelX[1][0] * (img.getRGB(x - 1, y) & 255)) +
+                                (sobelX[1][2] * (img.getRGB(x + 1, y) & 255)) +
+                                (sobelX[2][0] * (img.getRGB(x - 1, y + 1) & 255)) +
+                                (sobelX[2][1] * (img.getRGB(x, y + 1) & 255)) +
+                                (sobelX[2][2] * (img.getRGB(x + 1, y + 1) & 255))
                 );
                 int pixelY = (
-                        (sobelY[0][0] * (img.getRGB(x - 1, y - 1) & 0xFF)) +
-                                (sobelY[0][1] * (img.getRGB(x, y - 1) & 0xFF)) +
-                                (sobelY[0][2] * (img.getRGB(x + 1, y - 1) & 0xFF)) +
-                                (sobelY[1][0] * (img.getRGB(x - 1, y) & 0xFF)) +
-                                (sobelY[1][2] * (img.getRGB(x + 1, y) & 0xFF)) +
-                                (sobelY[2][0] * (img.getRGB(x - 1, y + 1) & 0xFF)) +
-                                (sobelY[2][1] * (img.getRGB(x, y + 1) & 0xFF)) +
-                                (sobelY[2][2] * (img.getRGB(x + 1, y + 1) & 0xFF))
+                        (sobelY[0][0] * (img.getRGB(x - 1, y - 1) & 255)) +
+                                (sobelY[0][1] * (img.getRGB(x, y - 1) & 255)) +
+                                (sobelY[0][2] * (img.getRGB(x + 1, y - 1) & 255)) +
+                                (sobelY[1][0] * (img.getRGB(x - 1, y) & 255)) +
+                                (sobelY[1][2] * (img.getRGB(x + 1, y) & 255)) +
+                                (sobelY[2][0] * (img.getRGB(x - 1, y + 1) & 255)) +
+                                (sobelY[2][1] * (img.getRGB(x, y + 1) & 255)) +
+                                (sobelY[2][2] * (img.getRGB(x + 1, y + 1) & 255))
                 );
                 int magnitude = (int) Math.sqrt((pixelX * pixelX) + (pixelY * pixelY));
                 int newRgb = (magnitude << 16) | (magnitude << 8) | magnitude;
@@ -140,8 +140,8 @@ public class ImageManipulation {
         for (int y = 0; y < img.getHeight(); y++) {
             for (int x = 0; x < img.getWidth(); x++) {
                 int rgb = img.getRGB(x, y);
-                int g = (rgb >> 8) & 0xFF;
-                int b = rgb & 0xFF;
+                int g = (rgb >> 8) & 255;
+                int b = rgb & 255;
                 int newRgb = (g << 8) | b;
                 result.setRGB(x, y, newRgb);
             }
@@ -154,9 +154,9 @@ public class ImageManipulation {
         for (int y = 0; y < img.getHeight(); y++) {
             for (int x = 0; x < img.getWidth(); x++) {
                 int rgb = img.getRGB(x, y);
-                int r = 255 - ((rgb >> 16) & 0xFF);
-                int g = 255 - ((rgb >> 8) & 0xFF);
-                int b = 255 - (rgb & 0xFF);
+                int r = 255 - ((rgb >> 16) & 255);
+                int g = 255 - ((rgb >> 8) & 255);
+                int b = 255 - (rgb & 255);
                 int newRgb = (r << 16) | (g << 8) | b;
                 result.setRGB(x, y, newRgb);
             }
