@@ -19,12 +19,13 @@ public class ImageProcessor extends JFrame {
     private Stack<BufferedImage> historyStack = new Stack<>();
 
     public ImageProcessor() {
-        setTitle("Image Processor");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(ImageProcessor.class.getResource("icon.png")));
+        setTitle("Photoshop");
         setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        JButton openButton = new JButton("Open Image");
+        JButton openButton = new JButton("Choose Image");
         openButton.addActionListener(e -> loadImage());
         add(openButton, BorderLayout.NORTH);
 
@@ -37,9 +38,11 @@ public class ImageProcessor extends JFrame {
         });
         buttonPanel.add(manipulationComboBox);
 
+
         JButton applyButton = new JButton("Apply Manipulation");
         applyButton.addActionListener(e -> applyManipulationToSelectedArea());
         buttonPanel.add(applyButton);
+
 
         JButton clearButton = new JButton("Clear Points");
         clearButton.addActionListener(e -> {
@@ -48,6 +51,13 @@ public class ImageProcessor extends JFrame {
             repaint();
         });
         buttonPanel.add(clearButton);
+
+
+        JButton saveButton = new JButton("Save Image");
+        saveButton.addActionListener(e -> applyManipulationToSelectedArea());
+        buttonPanel.add(saveButton);
+
+
 
         add(buttonPanel, BorderLayout.SOUTH);
         add(imagePanel, BorderLayout.CENTER);
@@ -78,6 +88,21 @@ public class ImageProcessor extends JFrame {
                 imagePanel.setPoints(points);
                 historyStack.clear();
                 historyStack.push(deepCopy(img));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    private void saveImage() {
+        JFileChooser fileChooser = new JFileChooser();
+        int result = fileChooser.showSaveDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            try {
+                BufferedImage img = imagePanel.getImage(); // Get the image from the image panel
+                ImageIO.write(img, "jpg", selectedFile); // Write the image to the selected file
+                historyStack.push(deepCopy(img)); // Push a deep copy of the image to the history stack
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
