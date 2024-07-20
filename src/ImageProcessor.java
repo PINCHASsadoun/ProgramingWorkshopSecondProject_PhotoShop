@@ -23,10 +23,18 @@ public class ImageProcessor extends JFrame {
         setTitle("Photoshop");
         setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
         setLocationRelativeTo(null);
+        getContentPane().setBackground(Color.DARK_GRAY);
+
+        imagePanel.setBackground(Color.black);
+
+
 
         JButton openButton = new JButton("Choose Image");
         openButton.addActionListener(e -> loadImage());
+        openButton.setBackground(Color.DARK_GRAY);
+        openButton.setForeground(Color.WHITE);
         add(openButton, BorderLayout.NORTH);
 
         JPanel buttonPanel = new JPanel();
@@ -36,12 +44,22 @@ public class ImageProcessor extends JFrame {
                 "Grayscale", "Black-White", "Posterize", "Tint", "Color Shift Right",
                 "Mirror", "Pixelate", "Show Borders", "Eliminate Red", "Negative"
         });
+        manipulationComboBox.setBackground(Color.DARK_GRAY);
+        manipulationComboBox.setForeground(Color.WHITE);
+        manipulationComboBox.setFont(new Font("Arial", Font.BOLD, 14));
+        manipulationComboBox.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+
         buttonPanel.add(manipulationComboBox);
 
 
         JButton applyButton = new JButton("Apply Manipulation");
         applyButton.addActionListener(e -> applyManipulationToSelectedArea());
         buttonPanel.add(applyButton);
+        applyButton.setBackground(Color.DARK_GRAY);
+        applyButton.setForeground(Color.WHITE);
+        applyButton.setFont(new Font("Arial", Font.BOLD, 14));
+
 
 
         JButton clearButton = new JButton("Clear Points");
@@ -50,11 +68,17 @@ public class ImageProcessor extends JFrame {
             imagePanel.setPoints(points);
             repaint();
         });
+        clearButton.setBackground(Color.DARK_GRAY);
+        clearButton.setForeground(Color.WHITE);
+        clearButton.setFont(new Font("Arial", Font.BOLD, 14));
         buttonPanel.add(clearButton);
 
 
         JButton saveButton = new JButton("Save Image");
         saveButton.addActionListener(e -> saveImage());
+        saveButton.setBackground(Color.DARK_GRAY);
+        saveButton.setForeground(Color.WHITE);
+        saveButton.setFont(new Font("Arial", Font.BOLD, 14));
         buttonPanel.add(saveButton);
 
 
